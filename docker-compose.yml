@@ -1,0 +1,55 @@
+services:
+  react-dev:
+    build:
+      context: .
+      dockerfile: dockerfile-react
+    container_name: react-dev
+    ports:
+      - "5173:5173"   # Vite dev server
+    volumes:
+      - ./app:/app        # Monta tu proyecto para hot-reload
+      #- /app/node_modules  # Evita sobreescribir node_modules del contenedor
+    stdin_open: true  # Mantiene el contenedor vivo para comandos interactivos
+    tty: true
+    working_dir: /app
+
+  postgres:
+    image: postgres:18.3
+    container_name: postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+      POSTGRES_DB: ${POSTGRES_DB:-mydb}
+    volumes:
+      - postgres-data:/var/lib/postgresql   # PG18: VOLUME apunta aquí
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-admin} -d ${POSTGRES_DB:-mydb}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+    
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+      ADMINER_DESIGN: pepa-linha-dark   # Tema oscuro elegante
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+volumes:
+  postgres-data:
+  
+networks:
+  app-network:
+    driver: bridge

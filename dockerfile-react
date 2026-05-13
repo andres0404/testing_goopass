@@ -1,0 +1,12 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Instala herramientas útiles
+RUN apk add --no-cache git curl
+
+# Expone el puerto de Vite
+EXPOSE 5173
+
+# Comando por defecto: shell interactivo
+CMD ["sh"]
