@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: dockerfile-react
-    container_name: react-dev
+    container_name: react-front
     ports:
       - "5173:5173"   # Vite dev server
     volumes:
@@ -12,6 +12,35 @@ services:
     stdin_open: true  # Mantiene el contenedor vivo para comandos interactivos
     tty: true
     working_dir: /app
+    environment:
+      VITE_API_URL: http://localhost:3000
+    depends_on:
+      - backend
+    networks:
+      - app-network
+  
+  backend:
+    build:
+      context: .
+      dockerfile: dockerfile-express
+    container_name: express-back
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api/:/api
+      - /api/node_modules
+    working_dir: /api
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DATABASE_URL: postgres://${POSTGRES_USER:-admin}:${POSTGRES_PASSWORD:-secret}@postgres:5432/${POSTGRES_DB:-mydb}
+    depends_on: 
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+    stdin_open: true
+    tty: true
 
   postgres:
     image: postgres:18.3
