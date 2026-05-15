@@ -21,6 +21,7 @@ const obtener = async (req, res) => {
 router.get("/{:id_pyt}", obtener);
 // router.get("/", obtener);
 
+
 // insert
 router.post("/", async (req, res) => {
     try {

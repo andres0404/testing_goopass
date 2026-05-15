@@ -5,10 +5,10 @@ export default function Column({ title, items, status, onDragStart, onDragOver, 
     <div
       onDragOver={onDragOver}
       onDrop={(e) => onDrop(e, status)}
-      className="bg-gray-100 rounded-lg p-4 min-h-screen flex-1 border-2 border-dashed border-gray-300"
+      className="column"
     >
-      <h2 className="font-bold text-lg text-gray-900 mb-4">{title}</h2>
-      <div className="space-y-4">
+      <h2 className="column-title">{title}</h2>
+      <div className="column-items">
         {items.length > 0 ? (
           items.map(({ project, tasks }) => (
             <ProjectCard
@@ -19,7 +19,7 @@ export default function Column({ title, items, status, onDragStart, onDragOver, 
             />
           ))
         ) : (
-          <p className="text-gray-400 text-center py-8">Vacío</p>
+          <p className="column-empty">Vacío</p>
         )}
       </div>
     </div>
