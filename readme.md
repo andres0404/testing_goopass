@@ -4,7 +4,7 @@ Prueba técnica para Gopass. el proyecto incluye:
 - React
 - Express js
 - Postgres
-- [Adminer](http://localhost:8080) (para ver BD)
+- [Adminer](http://localhost:8080?pgsql=postgres) (para ver BD)
 
 Arrancar Stack
 ```bash
@@ -24,4 +24,4 @@ docker exec -it $(docker ps -f name=back -q) node --watch src/index.js
 Ir a http://localhost:3000
 
 ## Postgres
-Es necesario entrar, crear la BD **goopass_proyectos** y allí restaurarla con la BD **bd.sql**
+Es necesario [entrar](http://localhost:8080?pgsql=postgres), crear la BD **goopass_proyectos** y allí restaurarla con la BD [**bd.sql**](https://github.com/andres0404/testing_goopass/blob/master/bd.sql)
