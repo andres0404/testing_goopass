@@ -3,15 +3,23 @@ const pool = require('../libs/db');
 const router = express.Router();
 
 // select
-router.get("/:id_pyt", async (req, res) => {
+const obtener = async (req, res) => {
     try {
         const { id_pyt } = req.params;
-        const { rows } = await pool.query("SELECT * from tareas where id_pyt = $1",[id_pyt]);
+        let query = "SELECT * from tareas ";
+        if(id_pyt) {
+            query = `${query} where id_pyt = $1`;
+            const {rows } = await pool.query(query,[id_pyt]);
+            return res.json(rows);
+        } 
+        const { rows } = await pool.query(query);
         res.json(rows);
     } catch(err) {
         res.status(500).json({error: err.message});
     }
-});
+};
+router.get("/{:id_pyt}", obtener);
+// router.get("/", obtener);
 
 // insert
 router.post("/", async (req, res) => {

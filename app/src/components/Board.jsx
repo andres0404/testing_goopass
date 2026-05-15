@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Column from './Column';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:3000/api';
 
 export default function Board() {
   const [proyectos, setProyectos] = useState([]);
