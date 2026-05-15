@@ -1,5 +1,7 @@
 -- Adminer 5.3.0 PostgreSQL 18.3 dump
 
+\connect "goopass_proyectos";
+
 DROP TABLE IF EXISTS "aputes_tarea";
 DROP SEQUENCE IF EXISTS aputes_tarea_id_apu_tarea_seq;
 CREATE SEQUENCE aputes_tarea_id_apu_tarea_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
@@ -133,4 +135,4 @@ ALTER TABLE ONLY "public"."usuario_tareas" ADD CONSTRAINT "usuario_tareas_id_tar
 ALTER TABLE ONLY "public"."usuario_tareas" ADD CONSTRAINT "usuario_tareas_id_usu_fkey" FOREIGN KEY (id_usu) REFERENCES usuarios(id_usu) NOT DEFERRABLE;
 ALTER TABLE ONLY "public"."usuario_tareas" ADD CONSTRAINT "usuario_tareas_id_usu_tar_fkey" FOREIGN KEY (id_usu_tar) REFERENCES usuarios(id_usu) NOT DEFERRABLE;
 
--- 2026-05-15 05:46:44 UTC
+-- 2026-05-15 06:03:12 UTC
