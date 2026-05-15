@@ -134,6 +134,7 @@ export default function Board() {
           <Button onClick={() => setShowTaskForm(true)} variant="primary">
             + Crear tarea
           </Button>
+          <h4>Desarrollador: Hernando Andres Silva Vega</h4>
         </div>
       </div>
       <div className="board-columns">
